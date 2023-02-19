@@ -1,33 +1,29 @@
-import React from 'react'
+import React from "react";
 
-import { render } from 'react-dom'
+import { render } from "react-dom";
 
-import { Provider } from 'react-redux'
+import { Provider } from "react-redux";
 
-import App from './App.js'
+import App from "./App.js";
 
 //SEE: Redux Persist	https://www.npmjs.com/package/redux-persist
-import { PersistGate } from 'redux-persist/lib/integration/react'
+import { PersistGate } from "redux-persist/lib/integration/react";
 
-import configureStore from './configureStore'
+import configureStore from "./configureStore";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-
-
-
+const { store, persistor } = configureStore();
 
 // gets the id from the html -- make sure the id is root in index.html!
-const root = document.getElementById('root')
+const root = document.getElementById("root");
 // create the store and give access to the Application (App) via the Provider element.
 render(
-  
-   
-     <App />,
-   
-   
-	
-   root
-)
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>,
 
-
+  root
+);
